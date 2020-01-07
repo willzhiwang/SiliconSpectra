@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="index.js"></script>
+
+    <script src="swap.js"></script>
+
+</head>
+
+<body>
+    <header>
+    </header>
+    <div id="loader"></div>
+
+    <div class="container" id="container">
+        <div id="info">
+            <div id="header">
+                <img src="movieDB.jpg" class="icon"></img>
+                <h4 class="headeritems" id="movieslist">Movies List</h4>
+                <h4 class="headeritems" id="likedlist">Liked List</h4>
+                <p id="count"></p>
+            </div>
+            <hr style="margin-top: 5px;">
+            <div id="popular_movies">
+                <h2 id="text">
+                    The Most Popular Movies
+                </h2>
+
+                <div class="list">
+                    <button class="buttons" id="prev" onclick="prev()" disabled>No More</button>
+                    <p id="pages"></p>
+                    <button class="buttons" id="next" onclick="next()">Next</button>
+                </div>
+                <div id="movies"></div>
+            </div>
+            <div id="liked_movies">
+                <h2 id="text">
+                    Liked List
+                </h2>
+                <button id="config">CONFIG</button>
+            </div>
+        </div>
+        <img src="../hw1/asset/Close-icon-31.png" id="close-icon"></img>
+        <div id="config_tags">
+
+        </div>
+    </div>
+</body>
+<script src="index.js"></script>
+
+</html>
