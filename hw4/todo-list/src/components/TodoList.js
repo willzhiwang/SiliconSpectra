@@ -10,24 +10,20 @@ const TodoList = () => {
   const [searchtext, setSearchText] = useState("");
 
   const addTodo = todoNew => {
-    if (todos.some(todo => todo.text === todoNew.text)) {
-      alert("existed");
-    } else {
-      setTodos([todoNew, ...todos]);
-    }
+    todos.some(todo => todo.text === todoNew.text)
+      ? alert("Name already existed")
+      : setTodos([todoNew, ...todos]);
   };
 
   const toggleComplete = id => {
     setTodos(
       todos.map(todo => {
-        if (todo.id === id && todo.edit === false) {
-          return {
-            ...todo,
-            complete: !todo.complete
-          };
-        } else {
-          return todo;
-        }
+        return todo.id === id && todo.edit === false
+          ? {
+              ...todo,
+              complete: !todo.complete
+            }
+          : todo;
       })
     );
   };
@@ -35,14 +31,12 @@ const TodoList = () => {
     if (event.key === "Enter") {
       setTodos(
         todos.map(todo => {
-          if (todo.id === id) {
-            return {
-              ...todo,
-              order
-            };
-          } else {
-            return todo;
-          }
+          return todo.id === id
+            ? {
+                ...todo,
+                order
+              }
+            : todo;
         })
       );
     }
@@ -67,14 +61,12 @@ const TodoList = () => {
   const handleEditTodo = id => {
     setTodos(
       todos.map(todo => {
-        if (todo.id === id) {
-          return {
-            ...todo,
-            edit: !todo.edit
-          };
-        } else {
-          return todo;
-        }
+        return todo.id === id
+          ? {
+              ...todo,
+              edit: !todo.edit
+            }
+          : { todo };
       })
     );
   };
@@ -83,15 +75,7 @@ const TodoList = () => {
     if (e.key === "Enter" || e.target.type === "submit") {
       setTodos(
         todos.map(todo => {
-          if (todo.id === id) {
-            return {
-              ...todo,
-              edit: !todo.edit,
-              text
-            };
-          } else {
-            return todo;
-          }
+          return todo.id === id ? { ...todo, edit: !todo.edit, text } : todo;
         })
       );
     }

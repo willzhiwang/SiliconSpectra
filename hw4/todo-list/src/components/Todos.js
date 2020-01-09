@@ -5,18 +5,15 @@ const Todos = props => {
   const [text, setText] = useState(props.todo.text);
   const [order, setOrder] = useState(props.todo.order);
 
-  const handleChange = event => {
-    if (event.target.name === "text") {
-    }
+  const handleText = event => {
     setText(event.target.value);
   };
   const handleOrder = event => {
     event.preventDefault();
-    if (event.target.name === "order") {
+    event.target.name === "order" &&
       setOrder(
         parseInt(event.target.value) ? parseInt(event.target.value) : ""
       );
-    }
   };
 
   return (
@@ -48,7 +45,7 @@ const Todos = props => {
             >
               <input
                 name="text"
-                onChange={handleChange}
+                onChange={handleText}
                 value={text}
                 placeholder="Todo Text"
                 onKeyPress={e => props.submitNewText(props.todo.id, text, e)}
