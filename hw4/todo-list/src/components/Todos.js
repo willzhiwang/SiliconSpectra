@@ -1,81 +1,104 @@
-import React, { Component } from 'react'
-import { Button } from 'reactstrap';
+import React, { useState } from "react";
+import { Button } from "reactstrap";
 
-export default class Todos extends Component {
-    state = {
-        text: this.props.todo.text,
-        order: this.props.todo.order
-    };
+const Todos = props => {
+  const [text, setText] = useState(props.todo.text);
+  const [order, setOrder] = useState(props.todo.order);
 
-    handleChange = event => {
-        if (event.target.name === 'text') {
-        }
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    };
-    handleOrder = event => {
-        event.preventDefault();
-        if (event.target.name === 'order') {
-            this.setState({
-                order: (parseInt(event.target.value) ? parseInt(event.target.value) : '')
-            });
-        }
+  const handleChange = event => {
+    if (event.target.name === "text") {
     }
-    render() {
-        return (
-            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "5px 30px" }}>
-                <input
-                    name="order"
-                    onChange={this.handleOrder}
-                    value={this.state.order}
-                    placeholder="Order text"
-                    onKeyPress={(e) => this.props.setOrder(e, this.props.todo.id, this.state.order)}
-                />
-                {(
-                    () => {
-                        if (this.props.todo.edit === true) {
-                            return (
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "0 30px" }}>
-                                    {/* <form onSubmit={() => this.props.submitNewText(this.props.todo.id, this.state.text)}> */}
-                                    <input
-                                        name="text"
-                                        onChange={this.handleChange}
-                                        value={this.state.text}
-                                        placeholder="Todo Text"
-                                        onKeyPress={(e) => this.props.submitNewText(this.props.todo.id, this.state.text, e)}
-                                    />
-                                    {/* </form> */}
-                                    <div>
-                                        <Button color="success" type="submit" onClick={(e) => this.props.submitNewText(this.props.todo.id, this.state.text, e)}>save</Button>
-                                        <Button color="secondary" onClick={this.props.onEdit}>cancle</Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                        else if (this.props.todo.edit === false) {
-                            return (
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "0 30px" }}>
-                                    <div
-                                        style={{
-                                            textDecoration: this.props.todo.complete ? "line-through" : ""
-                                        }}
-                                        onClick={this.props.toggleComplete}
-                                    >
-                                        <h5>{this.props.todo.text}</h5>
-                                    </div>
-                                    <div style={{ padding: "0 30px" }}>
-                                        <Button color="warning" onClick={this.props.onEdit}>edit</Button>
-                                        <Button color="danger" onClick={this.props.onDelete}>X</Button>
-                                    </div>
-                                </div>
-                            )
-                        }
-                    }
-                )()
-                }
+    setText(event.target.value);
+  };
+  const handleOrder = event => {
+    event.preventDefault();
+    if (event.target.name === "order") {
+      setOrder(
+        parseInt(event.target.value) ? parseInt(event.target.value) : ""
+      );
+    }
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: "5px 30px"
+      }}
+    >
+      <input
+        name="order"
+        onChange={handleOrder}
+        value={order}
+        placeholder="Order text"
+        onKeyPress={e => props.setOrder(e, props.todo.id, order)}
+      />
+      {(() => {
+        if (props.todo.edit === true) {
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: "0 30px"
+              }}
+            >
+              <input
+                name="text"
+                onChange={handleChange}
+                value={text}
+                placeholder="Todo Text"
+                onKeyPress={e => props.submitNewText(props.todo.id, text, e)}
+              />
+              {/* </form> */}
+              <div>
+                <Button
+                  color="success"
+                  type="submit"
+                  onClick={e => props.submitNewText(props.todo.id, text, e)}
+                >
+                  save
+                </Button>
+                <Button color="secondary" onClick={props.onEdit}>
+                  cancle
+                </Button>
+              </div>
             </div>
-        )
-    }
-}
-
+          );
+        } else if (props.todo.edit === false) {
+          return (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                padding: "0 30px"
+              }}
+            >
+              <div
+                style={{
+                  textDecoration: props.todo.complete ? "line-through" : ""
+                }}
+                onClick={props.toggleComplete}
+              >
+                <h5>{props.todo.text}</h5>
+              </div>
+              <div style={{ padding: "0 30px" }}>
+                <Button color="warning" onClick={props.onEdit}>
+                  edit
+                </Button>
+                <Button color="danger" onClick={props.onDelete}>
+                  X
+                </Button>
+              </div>
+            </div>
+          );
+        }
+      })()}
+    </div>
+  );
+};
+export default Todos;
