@@ -66,7 +66,7 @@ const TodoList = () => {
               ...todo,
               edit: !todo.edit
             }
-          : { todo };
+          : todo;
       })
     );
   };
