@@ -142,13 +142,6 @@ const MoviesList = ({
               <MovieItem movie={movie} key={movie.id} likeButton={likeButton} />
             ))
           )}
-          {!loading && movies.length === 0 ? (
-            <h3>Loading...</h3>
-          ) : (
-            movies.map(movie => (
-              <MovieItem movie={movie} key={movie.id} likeButton={likeButton} />
-            ))
-          )}
         </div>
       </div>
     </Fragment>
