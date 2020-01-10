@@ -19,7 +19,6 @@ const Todo = ({ todo, index, completeTodo, removeTodo }) => {
 
 const TodoForm = ({ addTodo }) => {
   const [value, setValue] = useState("");
-
   const handleSubmit = e => {
     e.preventDefault();
     if (!value) return;
