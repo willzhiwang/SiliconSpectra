@@ -32,69 +32,63 @@ const Todos = props => {
         placeholder="Order text"
         onKeyPress={e => props.setOrder(e, props.todo.id, order)}
       />
-      {(() => {
-        if (props.todo.edit === true) {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: "0 30px"
-              }}
+      {props.todo.edit === true ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: "0 30px"
+          }}
+        >
+          <input
+            name="text"
+            onChange={handleText}
+            value={text}
+            placeholder="Todo Text"
+            onKeyPress={e => props.submitNewText(props.todo.id, text, e)}
+          />
+          {/* </form> */}
+          <div>
+            <Button
+              color="success"
+              type="submit"
+              onClick={e => props.submitNewText(props.todo.id, text, e)}
             >
-              <input
-                name="text"
-                onChange={handleText}
-                value={text}
-                placeholder="Todo Text"
-                onKeyPress={e => props.submitNewText(props.todo.id, text, e)}
-              />
-              {/* </form> */}
-              <div>
-                <Button
-                  color="success"
-                  type="submit"
-                  onClick={e => props.submitNewText(props.todo.id, text, e)}
-                >
-                  save
-                </Button>
-                <Button color="secondary" onClick={props.onEdit}>
-                  cancle
-                </Button>
-              </div>
-            </div>
-          );
-        } else if (props.todo.edit === false) {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                padding: "0 30px"
-              }}
-            >
-              <div
-                style={{
-                  textDecoration: props.todo.complete ? "line-through" : ""
-                }}
-                onClick={props.toggleComplete}
-              >
-                <h5>{props.todo.text}</h5>
-              </div>
-              <div style={{ padding: "0 30px" }}>
-                <Button color="warning" onClick={props.onEdit}>
-                  edit
-                </Button>
-                <Button color="danger" onClick={props.onDelete}>
-                  X
-                </Button>
-              </div>
-            </div>
-          );
-        }
-      })()}
+              save
+            </Button>
+            <Button color="secondary" onClick={props.onEdit}>
+              cancle
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            padding: "0 30px"
+          }}
+        >
+          <div
+            style={{
+              textDecoration: props.todo.complete ? "line-through" : ""
+            }}
+            onClick={props.toggleComplete}
+          >
+            <h5>{props.todo.text}</h5>
+          </div>
+          <div style={{ padding: "0 30px" }}>
+            <Button color="warning" onClick={props.onEdit}>
+              edit
+            </Button>
+            <Button color="danger" onClick={props.onDelete}>
+              X
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
