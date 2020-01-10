@@ -34,8 +34,9 @@ const MoviesList = ({
   prevPage,
   sort
 }) => {
-  console.log(movies.movies_obj);
   getAllMovies();
+  //console.log(releaseDate_asc);
+
   if (loading === true) {
     console.log("loading");
     return <div>loading....</div>;
