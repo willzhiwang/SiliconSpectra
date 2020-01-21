@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ChangePhoto from "./ChangePhoto";
 import axios from "axios";
-const Carousel = () => {
+const CarouselHooks = () => {
   const [photos, setPhotos] = useState([]);
   const [index, setIndex] = useState(1);
 
@@ -48,7 +48,7 @@ const Carousel = () => {
       }
     }
   };
-  console.log(photos, index);
+  //console.log(photos, index);
   return (
     <div>
       <img src={photos[index]} alt="dd"></img>
@@ -61,4 +61,4 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;
+export default CarouselHooks;
