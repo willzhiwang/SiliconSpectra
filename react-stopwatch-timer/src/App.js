@@ -12,7 +12,7 @@ function App() {
         <StopWatchClass />
         <TimerClass />
       </div>
-      <hr/>
+      <hr />
       <div>
         <StopWatchHooks />
         <TimerHooks />
