@@ -4,12 +4,12 @@ import React, {useState} from "react";
 const StopWatchHooks = () => {
   const [lapse, setLapse] = useState(0);
   const [running, setRunning] = useState(false);
-  const timer = setInterval();
+  let timer;
 
-  const handleWatch = (timer)=>{
+  const handleWatch = ()=>{
 
     if (running) {
-      console.log("running",timer);
+      console.log("",timer);
       clearInterval(timer);
     } else {
       const startTime = Date.now() - lapse;
@@ -52,7 +52,7 @@ const StopWatchHooks = () => {
     <div className="container">
         <h4>StopWatch:</h4>
         <div className="time">{lapseFormat(lapse)} s</div>
-        <button onClick={e => handleWatch(timer)}>
+        <button onClick={e => handleWatch()}>
           {running ? "Stop" : "Start"}
         </button>
         <button className="clear" onClick={e => handleClearClick()}>
