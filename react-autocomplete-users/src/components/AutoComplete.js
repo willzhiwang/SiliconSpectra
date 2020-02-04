@@ -5,32 +5,37 @@ const AutoComplete = () => {
   const [display, setDisplay] = useState([]);
   const [text, setText] = useState("");
   const [modal, setModal] = useState({});
+
   let modalStyle = {
     display: modal.street ? "inline" : "none"
   };
+
   useEffect(() => {
     getUsers();
   }, []);
+
   const getUsers = async () => {
     let response = await axios(`https://jsonplaceholder.typicode.com/users`);
-    //console.log(response.data);
-    setUsers(users => response.data);
+    setUsers(response.data);
   };
+
   const textChange = e => {
     const input = e.target.value;
     setText(input);
     let newDisplay = [];
     if (input.length > 0) {
-      const temp = input.toLowerCase();
-      for (let user of users) {
-        let name = user.name;
-        if (name.toLowerCase().includes(temp)) {
-          newDisplay.push(user);
-        }
-      }
-      //   newDisplay = users.filter(user => {
-      //     user.name.toLowerCase().includes(temp);
-      //   });
+      //for of
+      // for (let user of users) {
+      //   let name = user.name;
+      //   if (name.toLowerCase().includes(input.toLowerCase())) {
+      //     newDisplay.push(user);
+      //   }
+      // }
+
+      //filter
+      newDisplay = users.filter(user => {
+        return user.name.toLowerCase().includes(input.toLowerCase());
+      });
     }
     console.log(newDisplay);
     setDisplay(newDisplay);
@@ -38,15 +43,20 @@ const AutoComplete = () => {
   };
 
   const handleName = e => {
-    console.log(e.target.innerText);
+    //console.log(e.target.innerText);
     setText(e.target.innerText);
     setDisplay([]);
-    for (let user of users) {
-      let name = user.name;
-      if (name === e.target.innerText) {
-        setModal(user.address);
-      }
-    }
+
+    // for (let user of users) {
+    //   let name = user.name;
+    //   name === e.target.innerText && setModal(user.address);
+    // }
+    //find
+    const currentUser = users.find(user => {
+      return user.name === e.target.innerText;
+    });
+    console.log(currentUser);
+    setModal(currentUser.address);
   };
 
   return (
