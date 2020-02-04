@@ -22,7 +22,6 @@ const CarouselHooks = () => {
     //   .then(() => {
     //     //console.log(photos);
     //   });
-
     // axios
     for (let i = 1; i < 6; i++) {
       let response = await axios(
