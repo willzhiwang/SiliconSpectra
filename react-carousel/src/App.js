@@ -1,8 +1,8 @@
 import React from "react";
 // import logo from './logo.svg';
 // import './App.css';
-import CarouselHooks from "./component/CarouselHooks";
-import CarouselClass from "./component/CarouselClass";
+import CarouselHooks from "./components/CarouselHooks";
+import CarouselClass from "./components/CarouselClass";
 
 function App() {
   return (
