@@ -24,7 +24,7 @@ class FormClass extends Component {
     this.setState({ email: e.target.value });
   };
   checkEmail = () => {
-    if (this.state.email.includes("@")) {
+    if (this.state.email.includes("@") && this.state.email.includes(".")) {
       const newContext = { phone: this.state.phone, email: this.state.email };
       console.log(newContext);
       this.setState(state => ({
@@ -41,9 +41,9 @@ class FormClass extends Component {
   };
   render() {
     let details;
-    let context = this.state.context;
+
     if (this.state.error) {
-      details = <p>The email address is invalid</p>;
+      details = <p color="red">The email address is invalid</p>;
     } else {
       details = (
         <div>
@@ -59,7 +59,7 @@ class FormClass extends Component {
     console.log(this.state.context);
 
     return (
-      <div>
+      <Fragment>
         <select onChange={this.chooseCode}>
           <option value={"001-"}>CHINA</option>
           <option value={"002-"}>USA</option>
@@ -78,7 +78,7 @@ class FormClass extends Component {
         />
         <button onClick={this.checkEmail}>SUBMIT</button>
         {details}
-      </div>
+      </Fragment>
     );
   }
 }
