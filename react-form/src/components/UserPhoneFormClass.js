@@ -35,39 +35,78 @@ export default class AddPhoneNumber extends Component {
       });
     }
     this.setState({ suggesstions: newSuggesstion });
-    console.log(this.state.suggesstions);
+    //console.log(this.state.suggesstions);
   };
 
   clickName = e => {
-    let newName = e.target.innerText;
-    console.log(newName);
-    this.setState({
-      name: newName,
-      suggesstions: []
-    });
-    console.log(this.state.name);
-
-    this.setState(state => ({
-      user: {
-        name: this.state.name
+    let name = e.target.innerText;
+    this.setState(
+      {
+        name,
+        suggesstions: [],
+        user: {
+          name
+        }
+      },
+      () => {
+        //console.log("name", this.state.user);
       }
+    );
+    //console.log("name", this.state.user);
+  };
+  phoneChange = e => {
+    this.setState(
+      {
+        [e.target.name]: e.target.value,
+        user: {
+          ...this.state.user,
+          phone: e.target.value
+        }
+      },
+      () => {
+        //console.log("user", this.state.user);
+      }
+    );
+  };
+
+  submit = e => {
+    const user = this.state.user;
+    this.setState(
+      {
+        users: [...this.state.users, user]
+      },
+      () => {
+        //console.log("users", this.state.users);
+      }
+    );
+  };
+  delUser = i => {
+    let newUsers = [...this.state.users];
+    newUsers.splice(i, 1);
+    this.setState(state => ({
+      users: newUsers
     }));
   };
 
-  submit = () => {};
-
   render() {
     //console.log(this.state.posts);
-    console.log(this.state.user);
+    console.log(this.state.users);
 
     const showSuggesstions = this.state.suggesstions.map(s => (
       <div key={s.id}>
         <p onClick={this.clickName}>{s.name}</p>
       </div>
     ));
+    const showUsers = this.state.users.map((u, i) => (
+      <div key={i} style={{ borderStyle: "groove" }}>
+        <p>name: {u.name}</p>
+        <p>phone:{u.phone}</p>
+        <button onClick={this.delUser}>X</button>
+      </div>
+    ));
     return (
       <div>
-        <form>
+        <div>
           <div>
             <label>Name: </label>
             <br />
@@ -84,22 +123,23 @@ export default class AddPhoneNumber extends Component {
           <div>
             <label>Add Phone Number: </label>
             <br />
-            <textarea
-              type="text"
-              name="phoneNumber"
-              onChange={this.onChange}
+            <input
+              type="number"
+              name="phone"
+              onChange={this.phoneChange}
               value={this.state.phoneNumber}
             />
           </div>
           <br />
-          <button type="submit" onClick={() => this.submit}>
+          <button type="submit" onClick={this.submit}>
             Submit
           </button>
-        </form>
+        </div>
+
         <div>
           <h5>Info:</h5>
-          <p>name: </p>
-          <p>phone:</p>
+          {showUsers}
+          <hr />
         </div>
       </div>
     );
