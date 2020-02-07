@@ -3,7 +3,7 @@ import "./App.css";
 import StopWatchClass from "./components/Classes/StopWatchClass";
 import TimerClass from "./components/Classes/TimerClass";
 import StopWatchHooks from "./components/Hooks/StopWatchHooks";
-import TimerHooks from "./components/Hooks//TimerHooks";
+import TimerHooks from "./components/Hooks/TimerHooks";
 
 function App() {
   return (
