@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" v-model="title" name="title" />
-    <button @click="addTodo()">Submit</button>
+    <button class="btn" @click="addTodo()">Submit</button>
     <P>{{ title }}</P>
   </div>
 </template>
@@ -16,13 +16,15 @@ export default {
   },
   methods: {
     addTodo() {
-      const newTodo = {
-        title: this.title,
-        completed: false
-      };
-      // Send up to parent
-      this.$emit("add-todo", newTodo);
-      this.title = "";
+      if (this.title.length > 0) {
+        const newTodo = {
+          title: this.title,
+          completed: false
+        };
+        // Send up to parent
+        this.$emit("add-todo", newTodo);
+        this.title = "";
+      }
     }
   }
 };

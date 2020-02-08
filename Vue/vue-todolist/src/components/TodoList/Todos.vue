@@ -1,7 +1,11 @@
 <template>
-  <div>
+  <div class="container">
     <div :key="todo.id" v-for="todo in todos">
-      <TodoItem :todo="todo" v-on:del-todo="$emit('del-todo',todo.id)" />
+      <TodoItem
+        :todo="todo"
+        v-on:del-todo="$emit('del-todo', todo.id)"
+        v-on:edit-todo="$emit('edit-todo', todo)"
+      />
     </div>
   </div>
 </template>
@@ -16,4 +20,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  margin: 10px 10%;
+}
+</style>
