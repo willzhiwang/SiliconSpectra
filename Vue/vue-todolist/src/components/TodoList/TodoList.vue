@@ -3,12 +3,12 @@
     <h1>{{ title }}</h1>
     <AddTodo v-on:add-todo="addTodo" />
     <div>
-      <button class="btn" @click="displayType('a')">All</button>
-      <button class="btn" @click="displayType('p')">Progressing</button>
-      <button class="btn" @click="displayType('d')">Done</button>
+      <button class="btn" @click="checkTypes('a')">All</button>
+      <button class="btn" @click="checkTypes('p')">Progressing</button>
+      <button class="btn" @click="checkTypes('d')">Done</button>
     </div>
     <Todos
-      :todos="todos"
+      :todos="displayTodos"
       v-on:edit-todo="editTodo"
       v-on:del-todo="deleteTodo"
     />
@@ -24,7 +24,7 @@ export default {
   name: "TodoList",
   components: { Todos, AddTodo },
   data() {
-    return { title: "Todo List", todos: [], type: "All" };
+    return { title: "Todo List", todos: [], type: "All", displayTodos: [] };
   },
   methods: {
     editTodo(todo) {
@@ -35,7 +35,10 @@ export default {
           title,
           completed
         })
-        .then(res => console.log("res: ", res));
+        .then(res => {
+          console.log("res: ", res);
+          this.displayType();
+        });
     },
     deleteTodo(id) {
       console.log(id);
@@ -44,6 +47,7 @@ export default {
         .then(res => {
           //console.log(res);
           this.todos = this.todos.filter(todo => todo.id !== id);
+          this.displayType();
         })
         .catch(err => console.log(err));
     },
@@ -55,10 +59,13 @@ export default {
           title,
           completed
         })
-        .then(res => (this.todos = [...this.todos, res.data]))
+        .then(res => {
+          this.todos = [...this.todos, res.data];
+          this.displayType();
+        })
         .catch(err => console.log(err));
     },
-    displayType(e) {
+    checkTypes(e) {
       if (e == "a") {
         this.type = "All";
       }
@@ -68,16 +75,36 @@ export default {
       if (e == "d") {
         this.type = "Done";
       }
+      this.displayType();
       console.log(this.type);
+    },
+    displayType() {
+      console.log("todos", this.todos);
+      if (this.type == "All") {
+        this.displayTodos = this.todos;
+      }
+      if (this.type == "Progress") {
+        this.displayTodos = this.todos.filter(todo => todo.completed === false);
+      }
+      if (this.type == "Done") {
+        this.displayTodos = this.todos.filter(todo => todo.completed === true);
+      }
+      console.log(this.displayTodos);
     }
   },
+  computed: {},
   created() {
     axios
       .get("https://jsonplaceholder.typicode.com/todos?_limit=5")
-      .then(res => (this.todos = res.data))
+      .then(res => {
+        this.todos = res.data;
+        //console.log(this.todos);
+        this.displayTodos = this.todos;
+      })
       .catch(err => {
         console.log(err);
       });
+    this.displayType();
   }
 };
 </script>
