@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+  <div class="container">
+    <p class="text">Hello, Welcome to movies list</p>
   </div>
 </template>
 
@@ -8,7 +8,12 @@
 // @ is an alias to /src
 
 export default {
-  name: "Home",
-  components: {}
+  name: "Home"
 };
 </script>
+<style scoped>
+.text {
+  margin-top: 20%;
+  font-size: 58px;
+}
+</style>

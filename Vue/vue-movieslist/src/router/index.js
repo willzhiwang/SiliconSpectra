@@ -1,7 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue";
+import MoviesList from "../views/MoviesList.vue";
+import LikedList from "../views/LikedList.vue";
+import BlockedList from "../views/BlockedList.vue";
 
 Vue.use(VueRouter);
 
@@ -12,9 +14,19 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    component: About
+    path: "/movieslist",
+    name: "MoviesList",
+    component: MoviesList
+  },
+  {
+    path: "/likedlist",
+    name: "LikedList",
+    component: LikedList
+  },
+  {
+    path: "/blockedlist",
+    name: "BlockedList",
+    component: BlockedList
   }
 ];
 

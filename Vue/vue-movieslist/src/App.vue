@@ -1,14 +1,15 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <div id="app"><MovieListApp /></div>
 </template>
-
-<style>
+<script>
+import MovieListApp from "./components/MovieListApp";
+export default {
+  components: {
+    MovieListApp
+  }
+};
+</script>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
