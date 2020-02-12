@@ -46,6 +46,7 @@ export default {
   justify-content: space-evenly;
   align-self: center;
   margin: 20px 0px;
+  border: 1px solid #bbb;
 }
 .movie {
   max-width: 400px;
