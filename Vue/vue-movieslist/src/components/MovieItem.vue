@@ -7,6 +7,10 @@
     <h6>vote count: {{ movie.vote_count }}</h6>
     <h6>vote average: {{ movie.vote_average }}</h6>
     <p>overview: {{ movie.overview }}</p>
+    <div>
+      <b-button class="sort-btn">Like</b-button>
+      <b-button class="sort-btn">Block</b-button>
+    </div>
   </div>
 </template>
 
@@ -23,5 +27,10 @@ export default {
 <style scoped>
 .movie-image {
   max-width: 200px;
+}
+.sort-btn {
+  padding: 0px 10px;
+  margin: 0px;
+  border: 1px;
 }
 </style>

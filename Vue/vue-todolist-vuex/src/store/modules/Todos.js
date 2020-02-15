@@ -14,21 +14,21 @@ const actions = {
       `https://jsonplaceholder.typicode.com/todos?_limit=5`
     );
     //console.log(res.data);
-    commit("Set_To_Dos", res.data);
+    commit("SET_TO_DOS", res.data);
   },
   async addTodo({ commit }, title) {
     const res = await axios.post(`https://jsonplaceholder.typicode.com/todos`, {
       title,
       completed: false
     });
-    commit("New_To_Do", res.data);
+    commit("NEW_TO_DO", res.data);
     console.log(state.todos);
   },
   async delTodo({ commit }, id) {
     const res = await axios.delete(
       `https://jsonplaceholder.typicode.com/todos/${id}`
     );
-    commit("Remove_To_Do", id);
+    commit("REMOVE_TO_DO", id);
   },
   async updateTodo({ commit }, todo) {
     const res = await axios.put(
@@ -40,15 +40,15 @@ const actions = {
     console.log(res.data);
     console.log(state.todos);
 
-    commit("Change_To_Do", todo);
+    commit("CHANGE_TO_DO", todo);
   }
 };
 const mutations = {
-  Set_To_Dos: (state, todos) => (state.todos = todos),
-  New_To_Do: (state, todo) => state.todos.unshift(todo),
-  Remove_To_Do: (state, id) =>
+  SET_TO_DOS: (state, todos) => (state.todos = todos),
+  NEW_TO_DO: (state, todo) => state.todos.unshift(todo),
+  REMOVE_TO_DO: (state, id) =>
     (state.todos = state.todos.filter(todo => todo.id !== id)),
-  Change_To_Do: (state, updTodo) => {
+  CHANGE_TO_DO: (state, updTodo) => {
     console.log(state.todos);
     const index = state.todos.findIndex(todo => todo.id === updTodo.id);
     if (index !== -1) {
