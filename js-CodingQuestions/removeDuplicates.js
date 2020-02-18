@@ -14,7 +14,7 @@ const uniqueforeach = arr => {
   return Object.keys(obj);
 };
 
-console.log(uniqueforeach(arr));
+console.log("for each", uniqueforeach(arr));
 
 //Filter
 const uniqueFilter = arr => {
@@ -22,4 +22,22 @@ const uniqueFilter = arr => {
     return index === array.indexOf(element);
   });
 };
-console.log(uniqueFilter(arr));
+console.log("filter", uniqueFilter(arr));
+
+//Set
+const uniqueSet = arr => {
+  // set to array
+  const set = new Set(arr);
+  return Array.from(set);
+};
+console.log("Set", uniqueSet(arr));
+
+//reduce
+const uniqueReduce = arr => {
+  const unique = arr.reduce((map, item) => {
+    map[item] = 0;
+    return map;
+  }, {});
+  return Object.keys(unique);
+};
+console.log("Reduce", uniqueReduce(arr));
