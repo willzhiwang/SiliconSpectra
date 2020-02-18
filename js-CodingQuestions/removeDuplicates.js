@@ -4,7 +4,17 @@
 
 let arr = ["1", "2", "3", "1", "a", "b", "b"];
 
-// forEach
+// forEach and Obj keys
+const uniqueforeach = arr => {
+  let obj = {};
+  arr.forEach(value => {
+    obj[value] = "";
+  });
+  // console.log(obj);
+  return Object.keys(obj);
+};
+
+console.log(uniqueforeach(arr));
 
 //Filter
 const uniqueFilter = arr => {
