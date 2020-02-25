@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="page">
+      <h2>Start... Click...</h2>
+      <ul>
+        <li id="one">fresh spinach</li>
+        <li id="two">grapes</li>
+        <li id="three">walnuts</li>
+        <li id="four">balsamic vinegar</li>
+      </ul>
+    </div>
+  </body>
+</html>
+<script>
+  var list = document.querySelectorAll("li");
+  var getlist = document.getElementsByTagName("li");
+  function addOnClick() {
+    var ulE = document.getElementsByTagName("ul")[0];
+    var newLE = document.createElement("li");
+    var newTE = document.createTextNode("olive oil");
+    newLE.appendChild(newTE);
+    ulE.appendChild(newLE);
+    alert("QueryNodeList.length" + list.length + "getList" + getlist.length);
+  }
+  document.addEventListener("click", addOnClick, false);
+</script>

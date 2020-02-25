@@ -1,0 +1,43 @@
+<html>
+  <body>
+    <div id="b">
+      <h2>Porpagation</h2>
+      <ul id="blist">
+        <li id="bi">
+          <a id="bLink">
+            Item
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div id="c">
+      <h2>C</h2>
+      <ul id="clist">
+        <li id="ci">
+          <a id="cLink">
+            Item
+          </a>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
+
+<script>
+  function showElement() {
+    alert(this.id);
+  }
+  el = document.getElementById("blist");
+  el.addEventListener("click", showElement, false);
+  el = document.getElementById("bi");
+  el.addEventListener("click", showElement, false);
+  el = document.getElementById("bL");
+  el.addEventListener("click", showElement, false);
+
+  el = document.getElementById("clist");
+  el.addEventListener("click", showElement, false);
+  el = document.getElementById("ci");
+  el.addEventListener("click", showElement, false);
+  el = document.getElementById("cL");
+  el.addEventListener("click", showElement, false);
+</script>
