@@ -8,7 +8,6 @@ import { userActions } from "../actions";
 export class LoginPage extends Component {
   constructor(props) {
     super(props);
-
     // reset login status
 
     this.state = {
@@ -21,9 +20,19 @@ export class LoginPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {}
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
-  handleSubmit(e) {}
+  handleSubmit(e) {
+    this.setState(prevState => ({
+      submitted: !prevState.submitted
+    }));
+    this.userActions.login(this.state.username, this.state.password);
+  }
 
   render() {
     const { username, password, submitted } = this.state;
@@ -69,6 +78,8 @@ export class LoginPage extends Component {
   }
 }
 
-function mapStateToProps(state) {}
+//function mapStateToProps(state) {}
 
-export { LoginPage as TestLoginPage };
+//export { LoginPage as TestLoginPage };
+
+export default connect()(LoginPage);
