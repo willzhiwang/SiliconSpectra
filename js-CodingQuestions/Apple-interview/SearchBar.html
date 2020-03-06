@@ -3,11 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <title>Search bar</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <title>Search Bar</title>
         <style>
             * {
                 box-sizing: border-box;
@@ -33,7 +30,7 @@
                 min-height: 700px;
             }
 
-            .autocomplete {
+            .search-bar {
                 position: relative;
                 display: inline-block;
             }
@@ -62,18 +59,18 @@
                 left: 0;
                 right: 0;
                 overflow-x: hidden;
-                overflow-y: scroll;
+                overflow-y: auto;
                 z-index: 11;
             }
 
-            .autocomplete-items div {
+            .autocomplete-item {
                 font-size: 18px;
                 padding: 10px;
                 cursor: pointer;
                 background-color: #fff;
             }
 
-            .autocomplete-items div:hover {
+            .autocomplete-item:hover {
                 background-color: #dddddd;
                 color: black;
             }
@@ -104,7 +101,7 @@
                 cursor: pointer;
                 z-index: 1;
             }
-            .icon {
+            .search-icon {
                 margin: 0px 10px;
                 font-size: 30px;
                 pointer-events: none;
@@ -114,51 +111,33 @@
                 display: none;
             }
 
-            #input_container {
+            #input-container {
                 position: relative;
                 width: 330px;
                 display: flex;
                 align-items: center;
             }
-            #myInput {
+            #searchInput {
                 padding-left: 40px;
                 padding-right: 35px;
                 width: 100%;
                 outline: none;
             }
-            #myInput:focus {
+            #searchInput:focus {
                 border: 2px solid #0074d9;
             }
         </style>
     </head>
     <body>
         <div class="container">
-            <h2 class="title">Animal Search Bar</h2>
-            <div class="autocomplete">
+            <h2 class="title">Search Bar</h2>
+            <div class="search-bar">
                 <div class="input-icons">
-                    <div id="input_container">
-                        <i class="fa fa-search icon"></i>
-                        <input
-                            class="input-field"
-                            id="myInput"
-                            type="text"
-                            name="animal"
-                            required
-                            placeholder="Search Animals"
-                            tabindex="0"
-                        />
-                        <button
-                            onclick="clearInput()"
-                            class="fa fa-times"
-                            id="close-icon"
-                            type="reset"
-                            tabindex="0"
-                        ></button>
-                        <div
-                            id="myInputautocomplete-list"
-                            class="autocomplete-items"
-                            tabindex="0"
-                        ></div>
+                    <div id="input-container">
+                        <i class="fa fa-search search-icon"></i>
+                        <input class="input-field" id="searchInput" type="text" name="search" value="" required placeholder="Search" tabindex="0" />
+                        <button onclick="clearInput()" class="fa fa-times" id="close-icon" type="reset" tabindex="0"></button>
+                        <div id="autocomplete-list" class="autocomplete-items" tabindex="0"></div>
                     </div>
                 </div>
             </div>
@@ -166,260 +145,137 @@
 
         <script>
             function clearInput() {
-                document.getElementById("myInput").value = "";
-                document.getElementById("myInput").focus();
+                document.getElementById("searchInput").value = "";
+                document.getElementById("searchInput").focus();
             }
             function tagToogle(tag) {
                 tag.addEventListener("keydown", function(e) {
-                    // esc
+                    // ESC
                     if (e.keyCode == 27) {
                         e.preventDefault();
-                        document.getElementById("myInput").focus();
+                        document.getElementById("searchInput").focus();
                     }
                 });
             }
-            function autocomplete(inp, arr) {
+            function autoComplete(inp, arr) {
                 let currentFocus;
-                let current = "";
-
                 inp.addEventListener("input", function(e) {
                     let val = this.value;
                     let index = 0;
-                    closeAllLists();
+                    removeResults();
                     if (!val) {
                         return false;
                     }
                     currentFocus = -1;
+                    // create new components
                     for (let i = 0; i < arr.length; i++) {
                         if (arr[i].toUpperCase().includes(val.toUpperCase())) {
-                            let b = document.createElement("DIV");
-                            let str = arr[i];
-                            //get the key words
-                            let re = new RegExp(val, "gi");
-                            str = str.replace(
-                                re,
-                                "<b>" + val.toLowerCase() + "</b>"
-                            );
-                            b.innerHTML += str;
-                            b.id = "item" + index;
-                            index++;
-                            b.innerHTML +=
-                                "<input type='hidden' value='" + arr[i] + "'>";
-                            b.addEventListener("click", function(e) {
-                                inp.value = this.getElementsByTagName(
-                                    "input"
-                                )[0].value;
-                                document.getElementById("myInput").focus();
+                            const postionofstrong = arr[i].toUpperCase().indexOf(val.toUpperCase());
+                            //console.log(postionofstrong);
+                            const newDiv = document.createElement("DIV");
 
-                                closeAllLists();
+                            newDiv.innerHTML += arr[i].substring(0, postionofstrong);
+                            newDiv.innerHTML += "<b>" + arr[i].substring(postionofstrong, postionofstrong + val.length) + "</b>";
+                            newDiv.innerHTML += arr[i].substring(val.length + postionofstrong, arr[i].length);
+
+                            newDiv.id = "item" + index;
+                            newDiv.className = "autocomplete-item";
+                            index++;
+                            newDiv.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                            newDiv.addEventListener("click", function(e) {
+                                // console.log("clicked ");
+                                inp.value = this.getElementsByTagName("input")[0].value;
+                                document.getElementById("searchInput").focus();
+
+                                removeResults();
                             });
-                            document
-                                .getElementById("myInputautocomplete-list")
-                                .appendChild(b);
+                            document.getElementById("autocomplete-list").appendChild(newDiv);
                         }
                     }
-                    if (document.getElementById("myInputautocomplete-list")) {
-                        document.getElementById(
-                            "myInputautocomplete-list"
-                        ).tabIndex = "0";
+                    if (document.getElementById("autocomplete-list")) {
+                        document.getElementById("autocomplete-list").tabIndex = "0";
                     }
                 });
                 inp.addEventListener("keydown", function(e) {
                     //ENTER
                     if (e.keyCode == 13) {
                         e.preventDefault();
-                        let x = document.getElementById(
-                            "myInputautocomplete-list"
-                        );
-                        if (x) x = x.getElementsByTagName("div");
-                        if (currentFocus > -1) {
-                            if (x) x[currentFocus].click();
+                        itemDiv = document.getElementsByClassName("autocomplete-item");
+                        //console.log(itemDiv.length);
+                        if (currentFocus > -1 && itemDiv.length > 0) {
+                            itemDiv && itemDiv[currentFocus].click();
                         }
-                        let current = document.activeElement.id;
                         //start search and send request, then clear input and output
-                        document.getElementById("myInput").value = "";
-                        document.getElementById(
-                            "myInputautocomplete-list"
-                        ).innerHTML = "Searching...";
+                        if (document.getElementById("searchInput").value !== "") {
+                            document.getElementById("autocomplete-list").innerHTML = "Searching...";
+                        }
+                        document.getElementById("searchInput").value = "";
                     }
                     //ESC
                     else if (e.keyCode == 27) {
                         e.preventDefault();
                         clearInput();
-                        document.getElementById(
-                            "myInputautocomplete-list"
-                        ).innerHTML = "";
+                        document.getElementById("autocomplete-list").innerHTML = "";
                     }
                 });
                 /*execute a function presses a key on the keyboard:*/
                 window.addEventListener("keydown", function(e) {
-                    let x = document.getElementById("myInputautocomplete-list");
-                    if (x) x = x.getElementsByTagName("div");
-                    //down
-                    if (e.keyCode == 40 && x.length > 0) {
+                    let itemDiv = document.getElementsByClassName("autocomplete-item");
+                    //function helps up and down keys bind new input value
+                    const setValue = () => {
                         e.preventDefault();
                         setTimeout(function() {
-                            if (x[currentFocus]) {
-                                let result = document.getElementById(
-                                    x[currentFocus].id
-                                ).lastChild.value;
+                            if (itemDiv[currentFocus]) {
+                                let result = document.getElementById(itemDiv[currentFocus].id).lastChild.value;
                                 inp.value = result;
                             }
                         }, 1);
+                    };
+                    //down
+                    if (e.keyCode == 40 && itemDiv.length > 0) {
+                        setValue();
                         currentFocus++;
-                        addActive(x);
+                        addActive(itemDiv);
                     }
                     //up
-                    else if (e.keyCode == 38 && x.length > 0) {
-                        e.preventDefault();
-                        setTimeout(function() {
-                            if (x[currentFocus]) {
-                                let result = document.getElementById(
-                                    x[currentFocus].id
-                                ).lastChild.value;
-                                inp.value = result;
-                            }
-                        }, 1);
-
+                    else if (e.keyCode == 38 && itemDiv.length > 0) {
+                        setValue();
                         currentFocus--;
-                        addActive(x);
+                        addActive(itemDiv);
                     }
                     //ESC
                     else if (e.keyCode == 27) {
                         e.preventDefault();
-                        document.getElementById("myInput").focus();
+                        document.getElementById("searchInput").focus();
                     }
                 });
 
-                function addActive(x) {
-                    if (!x) return false;
-                    removeActive(x);
-                    if (currentFocus >= x.length) currentFocus = 0;
-                    if (currentFocus < 0) currentFocus = x.length - 1;
-                    x[currentFocus].classList.add("autocomplete-active");
-                    let elmnt = document.getElementById(x[currentFocus].id);
-                    elmnt.scrollIntoView();
+                function addActive(itemDiv) {
+                    if (!itemDiv) return false;
+                    removeActive(itemDiv);
+                    if (currentFocus >= itemDiv.length) currentFocus = 0;
+                    if (currentFocus < 0) currentFocus = itemDiv.length - 1;
+                    itemDiv[currentFocus].classList.add("autocomplete-active");
+                    const ele = document.getElementById(itemDiv[currentFocus].id);
+                    ele.scrollIntoView();
                 }
-                function removeActive(x) {
-                    for (let i = 0; i < x.length; i++) {
-                        x[i].classList.remove("autocomplete-active");
+                function removeActive(itemDiv) {
+                    for (let i = 0; i < itemDiv.length; i++) {
+                        itemDiv[i].classList.remove("autocomplete-active");
                     }
                 }
-                function closeAllLists(elmnt) {
-                    let x = document.getElementById("myInputautocomplete-list");
-                    x.innerHTML = "";
+                function removeResults(elmnt) {
+                    document.getElementById("autocomplete-list").innerHTML = "";
                 }
                 document.addEventListener("click", function(e) {
-                    closeAllLists(e.target);
+                    removeResults(e.target);
                 });
             }
 
-            // 100 animals from online
-            const animals = [
-                "aardvark",
-                "albatross",
-                "alligator",
-                "alpaca",
-                "ant",
-                "anteater",
-                "antelope",
-                "ape",
-                "armadillo",
-                "donkey",
-                "baboon",
-                "badger",
-                "barracuda",
-                "bat",
-                "bear",
-                "beaver",
-                "bee",
-                "bison",
-                "boar",
-                "buffalo",
-                "butterfly",
-                "camel",
-                "capybara",
-                "caribou",
-                "cassowary",
-                "cat",
-                "caterpillar",
-                "cattle",
-                "chamois",
-                "cheetah",
-                "chicken",
-                "chimpanzee",
-                "chinchilla",
-                "chough",
-                "clam",
-                "cobra",
-                "cockroach",
-                "cod",
-                "cormorant",
-                "coyote",
-                "crab",
-                "crane",
-                "crocodile",
-                "crow",
-                "curlew",
-                "deer",
-                "dinosaur",
-                "dog",
-                "dogfish",
-                "dolphin",
-                "dotterel",
-                "dove",
-                "dragonfly",
-                "duck",
-                "dugong",
-                "dunlin",
-                "eagle",
-                "echidna",
-                "eel",
-                "eland",
-                "elephant",
-                "elk",
-                "emu",
-                "falcon",
-                "ferret",
-                "finch",
-                "fish",
-                "flamingo",
-                "fly",
-                "fox",
-                "frog",
-                "gaur",
-                "gazelle",
-                "gerbil",
-                "giraffe",
-                "gnat",
-                "gnu",
-                "goat",
-                "goldfinch",
-                "goldfish",
-                "goose",
-                "gorilla",
-                "goshawk",
-                "grasshopper",
-                "grouse",
-                "guanaco",
-                "gull",
-                "hamster",
-                "hare",
-                "hawk",
-                "hedgehog",
-                "heron",
-                "herring",
-                "hippopotamus",
-                "hornet",
-                "horse",
-                "human",
-                "hummingbird",
-                "hyena",
-                "ibex"
-            ];
-
-            autocomplete(document.getElementById("myInput"), animals);
-            tagToogle(document.getElementById("input_container"));
+            // random sentences from online github
+            const sentences = ["Bored to death", "Sick and Tired", "Call it a day", "Couch potato", " Feel blue", "Fender bender", "Get foot in the door", "Give somebody", "Go Dutch", "Throw in the towel", "Goose bumps", " Stay in touch", "Have the guts", "Rain or Shine", "Easier said than done", "Jump to conclusions", "Keep an eye on", "Out of the blue", "Know something inside out", " Give someone a hand", "Now and then", "On the dot", "Out of this world", "Piece of cake", "Sooner or later", "Read between the lines", "Rings a bell", "Sleep on it", "Play it by ear", "Speak of the devil", "Grab a bite", "Take it easy", "Go with the flow", "Under the weather", "Beats Me", "Keep Your Cool", "Good For You", "Good Luck", "Who Cares", "Big Deal", "Over My Dead Body", "Coming Right Up", "Nothing Matters", "Never mind", "Fair Enough", "My Pleasure", "Good for Nothing", "Get a Life", "My Two Cents", "Nature Calls", "Shame on You", "Hang In There", "Behave Yourself", "Maddening", "Whatever", "student on the bus", "useless stuff", "stubhub tickets", "user study"];
+            autoComplete(document.getElementById("searchInput"), sentences);
+            tagToogle(document.getElementById("input-container"));
         </script>
     </body>
 </html>
