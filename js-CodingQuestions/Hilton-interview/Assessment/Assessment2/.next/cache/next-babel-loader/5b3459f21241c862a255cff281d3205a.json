@@ -1,0 +1,1 @@
+{"ast":null,"code":"//\nexport var CHECK_ROOM = \"CHECK_ROOM\";","map":{"version":3,"sources":["/Users/zhiwang/Downloads/Assessment/Assessment2/redux/actions/types.js"],"names":["CHECK_ROOM"],"mappings":"AAAA;AACA,OAAO,IAAMA,UAAU,GAAG,YAAnB","sourcesContent":["//\nexport const CHECK_ROOM = \"CHECK_ROOM\";\n"]},"metadata":{},"sourceType":"module"}

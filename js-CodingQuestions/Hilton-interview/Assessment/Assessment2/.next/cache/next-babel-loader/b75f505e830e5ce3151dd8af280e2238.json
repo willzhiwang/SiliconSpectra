@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { createGlobalStyle } from \"styled-components\";\nconst GlobalStyle = createGlobalStyle`\n\n`;\nexport default GlobalStyle;","map":null,"metadata":{},"sourceType":"module"}

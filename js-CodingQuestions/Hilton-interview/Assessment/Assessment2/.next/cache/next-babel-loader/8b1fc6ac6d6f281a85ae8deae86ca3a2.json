@@ -1,0 +1,1 @@
+{"ast":null,"code":"//\nexport const CHECK_ROOM = \"CHECK_ROOM\";\nexport const SUBMIT_ROOM = \"SUBMIT_ROOM\";","map":null,"metadata":{},"sourceType":"module"}

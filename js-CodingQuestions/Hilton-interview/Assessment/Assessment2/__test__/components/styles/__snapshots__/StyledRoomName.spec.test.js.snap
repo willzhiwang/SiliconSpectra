@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should properly render style component 1`] = `
+.c0 {
+  font-size: 1.1em;
+  text-align: center;
+  margin: 0.2em 0;
+}
+
+<h4
+  className="c0"
+/>
+`;

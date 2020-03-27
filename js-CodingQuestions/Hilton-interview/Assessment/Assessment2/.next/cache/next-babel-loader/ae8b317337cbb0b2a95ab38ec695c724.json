@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { createGlobalStyle } from \"styled-components\";\nconst GlobalStyle = createGlobalStyle`\n p{\n     margin: 3px;\n }\n select{\n    margin: 3px;\n }\n button {\n    padding: 5px 5px;\n    font-size: 13px;\n }\n`;\nexport default GlobalStyle;","map":null,"metadata":{},"sourceType":"module"}

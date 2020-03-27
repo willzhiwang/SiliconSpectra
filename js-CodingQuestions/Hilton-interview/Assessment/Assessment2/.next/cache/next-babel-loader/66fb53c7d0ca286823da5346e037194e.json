@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"styled-components\";\nconst StyledRoomTitle = styled.div`\n  margin-left: 0.1em;\n  display: flex;\n  flex-direction: row;\n  justify-content: start;\n  align-items: center;\n`;\nexport default StyledRoomTitle;","map":null,"metadata":{},"sourceType":"module"}

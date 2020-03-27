@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"styled-components\";\nconst StyledRoomName = styled.h3`\n  font-size: 1.5em;\n  text-align: center;\n  margin-left: 0.2em;\n`;\nexport default StyledRoomName;","map":null,"metadata":{},"sourceType":"module"}

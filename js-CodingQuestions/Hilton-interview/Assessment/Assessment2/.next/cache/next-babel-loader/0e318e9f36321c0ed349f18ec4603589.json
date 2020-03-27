@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { combineReducers } from \"redux\";\nimport roomReducers from \"./roomReducers\";\nexport default combineReducers({\n  roomObj: roomReducers\n});","map":null,"metadata":{},"sourceType":"module"}

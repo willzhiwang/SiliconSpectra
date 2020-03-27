@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"styled-components\";\nvar StyledRoomName = styled.h4.withConfig({\n  componentId: \"giem5x-0\"\n})([\"font-size:1.1em;text-align:center;margin:0.2em 0;\"]);\nexport default StyledRoomName;","map":null,"metadata":{},"sourceType":"module"}

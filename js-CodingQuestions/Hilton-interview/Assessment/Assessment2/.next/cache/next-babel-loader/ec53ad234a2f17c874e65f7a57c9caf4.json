@@ -1,0 +1,1 @@
+{"ast":null,"code":"import styled from \"styled-components\";\nvar StyledRoomContainer = styled.div.withConfig({\n  componentId: \"sc-10xvsal-0\"\n})([\"display:flex;flex-direction:row;justify-content:start;align-items:center;\"]);\nexport default StyledRoomContainer;","map":null,"metadata":{},"sourceType":"module"}
