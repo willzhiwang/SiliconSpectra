@@ -11,7 +11,7 @@ export default {
   name: "AddTodo",
   data() {
     return {
-      title: ""
+      title: "",
     };
   },
   methods: {
@@ -19,14 +19,16 @@ export default {
       if (this.title.length > 0) {
         const newTodo = {
           title: this.title,
-          completed: false
+          completed: false,
         };
         // Send up to parent
         this.$emit("add-todo", newTodo);
         this.title = "";
       }
-    }
-  }
+    },
+  },
+  computed: {},
+  created() {},
 };
 </script>
 
