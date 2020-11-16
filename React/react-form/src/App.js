@@ -1,13 +1,15 @@
 import React from "react";
 import "./App.css";
-import FormClass from "./components/FormClass";
+import PhoneEmailFormClass from "./components/PhoneEmailFormClass";
 import UserPhoneFromClass from "./components/UserPhoneFormClass";
+import EmailNameFormHooks from "./components/EmailNameFormHooks";
 
 function App() {
   return (
     <div className="App">
-      <FormClass />
-      <UserPhoneFromClass />
+      {/* <PhoneEmailFormClass /> */}
+      <EmailNameFormHooks />
+      {/* <UserPhoneFromClass /> */}
     </div>
   );
 }

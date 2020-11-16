@@ -1,41 +1,41 @@
 import React, { Component, Fragment } from "react";
 
-class FormClass extends Component {
+class PhoneEmailFormClass extends Component {
   state = {
     code: "001-",
     phone: "",
     email: "",
     context: [],
-    error: false
+    error: false,
   };
 
-  chooseCode = e => {
+  chooseCode = (e) => {
     this.setState({ code: e.target.value });
   };
 
-  handlePhoneNum = e => {
+  handlePhoneNum = (e) => {
     let number = e.target.value.substring(4);
     console.log(number);
 
     this.setState({ phone: number });
   };
 
-  handleEmailChange = e => {
+  handleEmailChange = (e) => {
     this.setState({ email: e.target.value });
   };
   checkEmail = () => {
     if (this.state.email.includes("@") && this.state.email.includes(".")) {
       const newContext = { phone: this.state.phone, email: this.state.email };
       console.log(newContext);
-      this.setState(state => ({
+      this.setState((state) => ({
         error: false,
         phone: "",
         email: "",
-        context: [...this.state.context, newContext]
+        context: [...this.state.context, newContext],
       }));
     } else {
-      this.setState(state => ({
-        error: true
+      this.setState((state) => ({
+        error: true,
       }));
     }
   };
@@ -83,4 +83,4 @@ class FormClass extends Component {
   }
 }
 
-export default FormClass;
+export default PhoneEmailFormClass;
